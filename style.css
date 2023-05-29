@@ -1,0 +1,64 @@
+
+body {
+    font-family: Montserrat !important;
+}
+
+h1, label {
+    font-weight: bold;
+}
+
+.form-control {
+    border: 2px solid #1c154a;
+}
+
+.form-control:focus {
+    border: 2px solid #1c154a;
+    outline: black !important;
+    box-shadow: 2px 3px 4px black;
+}
+
+.bolder tr, th {
+    font-weight: bold;
+}
+
+.orange {
+    color: #d9644d;
+}
+
+h1 {
+    color: #1c154a;
+}
+
+.btn-dark, .btn-dark:focus, .btn-dark:hover {
+    background-color: #1c154a;
+    font-weight: 300;
+}
+.tracking-in-expand {
+    -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+@-webkit-keyframes tracking-in-expand {
+    0% {
+        letter-spacing: -0.5em;
+        opacity: 0;
+    }
+    40% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes tracking-in-expand {
+    0% {
+        letter-spacing: -0.5em;
+        opacity: 0;
+    }
+    40% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
+}

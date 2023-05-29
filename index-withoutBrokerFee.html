@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+        <meta
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+            />
+
+        <!-- Bootstrap CSS -->
+        <link
+            crossorigin="anonymous"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            rel="stylesheet"
+            />
+
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
+            rel="stylesheet">
+
+        <link rel="stylesheet" href="./style.css">
+       
+        <title>Lease Calculator</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1 style="text-align: center;font-weight: bold"><span
+                    class="orange">Lease </span> Calculator</h1>
+            <div class="row mt-2">
+
+                <div class="col-md-6 col-sm-12 mb-3">
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <h1 class="text-center bold"><span
+                                                class="orange">Enter </span>
+                                            Information</h1>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><label for="equipmentAmount">Equipment
+                                                Amount </label></td>
+                                        <td><input class="form-control"
+                                                id="equipmentAmount" name=""
+                                                onkeyup="format(this)"
+                                                placeholder="e.g 10000"
+                                                type="text" value="50,000"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="months">How Many Months?
+                                            </label></td>
+                                        <td><input class="form-control"
+                                                id="months" name=""
+                                                onkeyup="format(this)"
+                                                placeholder="e.g 1000"
+                                                type="text" value="60"/></td>
+                                    </tr>
+                                    <tr style="display: none">
+                                        <td><label for="interestRate">Annual
+                                                Interest Rate </label></td>
+                                        <td><input class="form-control"
+                                                id="interestRate" type="number"
+                                                value="8.50"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="months">Interest</label></td>
+                                        <td><select name="Performance" id="performance" class="form-control">
+                                            <option value="Good">Good</option>
+                                            <option value="Better">Better</option>
+                                            <option value="Best">Best</option>
+                                        </select></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <button class="btn mb-2 btn-dark btn-lg float-right"onclick="checkCookie()">Calculate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 tracking-in-expand" id="result"
+                    style="display: none;">
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <h1 class="text-center orange">Summary</h1>
+                                    </tr>
+                                </thead>
+                                <tbody class="bolder">
+                                    <tr>
+                                        <td>Monthly Payment</td>
+                                        <td id="monthlyPayment"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>12 Months Tax Write Off</td>
+                                        <td id="taxWriteOff"></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle"
+                class="modal fade" id="exampleModalCenter"
+                role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button aria-label="Close" class="close"
+                                data-dismiss="modal" type="button">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Please fill in your details to continue</h3>
+                            <label for="name">Name</label>
+                            <input class="form-control" id="name" name="name"
+                                type="text">
+                            <label for="email">Email</label>
+                            <input class="form-control" id="email" name="email"
+                                type="email">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary"
+                                data-dismiss="modal" type="button">Close</button>
+                            <button class="btn btn-secondary"
+                                onclick="setCookie('existingUser','existingUser')" type="button">Submit!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.0.js"
+            integrity="sha256-wPFJNIFlVY49B+CuAIrDr932XSb6Jk3J1M22M3E2ylQ="
+            crossorigin="anonymous"></script>
+        <script crossorigin="anonymous"
+            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+        <script >
+
+
+
+            function setCookie(cname,cValue) {
+ 
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            if (name == '' || email == '') {
+            alert('Please fill in all the details');
+            return false;
+            }
+            else{
+            document.cookie = cname + "=" + cValue + ";path=/";
+            checkCookie();
+            }
+            
+            }
+            
+            function getCookie(cname) {
+         
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+          
+              return c.substring(name.length, c.length);
+            }
+            }
+     
+            return "";
+            }
+            
+            function checkCookie() {
+            
+            let user = getCookie("existingUser");
+            if (user != "") {
+             getResult();
+            } else {
+            $('#exampleModalCenter').modal('show');
+             }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+                function getResult() {
+                    //close modal
+                    $('#exampleModalCenter').modal('hide');
+         
+                    document.getElementById("result").style.display = "block";
+                    var equipmentAmount = parseFloat(document.getElementById("equipmentAmount").value.replace(/,/g, ''));
+                    var months = parseFloat(document.getElementById("months").value);
+            
+                    let interestRate = parseFloat(document.getElementById("interestRate").value);
+                    let result = PMT(interestRate / 100 / 12, months, -equipmentAmount, 1, 1);
+                    let taxWriteOff = result * 12;
+            
+                    document.getElementById("result").style.display = "block";
+                    document.getElementById("monthlyPayment").innerHTML = toComma(result);
+                    document.getElementById("taxWriteOff").innerHTML = toComma(taxWriteOff);
+                
+
+                    $.ajax({
+                type: "POST",
+                url: "./mail-withoutBrokerFee.php",
+                data: {
+                    name: name,
+                    email: email,
+                    equipmentAmount: equipmentAmount,
+                    months: months,
+                
+                    interestRate: interestRate,
+                    result: result,
+                    taxWriteOff: taxWriteOff
+                },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+            
+            
+            
+            
+                }
+            
+            
+                function PMT(rate, nper, pv, fv, type) {
+                    if (!fv) fv = 0;
+                    if (!type) type = 0;
+            
+                    if (rate == 0) return -(pv + fv) / nper;
+            
+                    var pvif = Math.pow(1 + rate, nper);
+                    var pmt = rate / (pvif - 1) * -(pv * pvif + fv);
+            
+                    if (type == 1) {
+                        pmt /= (1 + rate);
+                    }
+            
+                    return pmt;
+                }
+                let toComma = (x) => "$ " + x.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            
+            
+                function format(input) {
+                    var nStr = input.value + '';
+                    nStr = nStr.replace(/\,/g, "");
+                    x = nStr.split('.');
+                    x1 = x[0];
+                    x2 = x.length > 1 ? '.' + x[1] : '';
+                    var rgx = /(\d+)(\d{3})/;
+                    while (rgx.test(x1)) {
+                        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                    input.value = x1 + x2;
+                }
+            
+            </script>
+        <script src="./iframeResizer.contentWindow.min.js"></script>
+    </body>
+</html>
+s
